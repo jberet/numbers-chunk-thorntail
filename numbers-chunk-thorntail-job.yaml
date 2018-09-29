@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: numbers-chunk-thorntail-job
+spec:
+  parallelism: 1
+  completions: 1
+  template:
+    metadata:
+      name: numbers-chunk-thorntail-job
+    spec:
+      containers:
+      - name: numbers-chunk-thorntail-job
+        image: docker-registry.default.svc:5000/pr/numbers-chunk
+        command: ["java",  "-jar", "/deployments/numbers-chunk-thorntail.jar"]
+      restartPolicy: OnFailure
+
