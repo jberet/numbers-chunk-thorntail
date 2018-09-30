@@ -1,18 +1,19 @@
- apiVersion: batch/v1beta1
+apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: numbers-chunk-thorntail-cron
 spec:
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
-  schedule: "*/3 * * * *"
+  schedule: "*/5 * * * *"
   jobTemplate:
     spec:
       template:
         spec:
           containers:
           - name: numbers-chunk-thorntail-cron
-            image:     docker-registry.default.svc:5000/pr/numbers-chunk
-            command: ["java",  "-jar", "/deployments/numbers-chunk-thorntail.jar"]
+            image: docker-registry.default.svc:5000/pr/numbers-chunk-thorntail
+            command: ["java",  "-Xms64m", "-Xmx256m", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-XX:+UseParallelOldGC", "-XX:MinHeapFreeRatio=10", "-XX:MaxHeapFreeRatio=20", "-XX:GCTimeRatio=4", "-XX:AdaptiveSizePolicyWeight=90", "-XX:MaxMetaspaceSize=100m", "-XX:ParallelGCThreads=1", "-Djava.util.concurrent.ForkJoinPool.common.parallelism=1", "-XX:CICompilerCount=2", "-XX:+ExitOnOutOfMemoryError", "-jar", "/deployments/numbers-chunk-thorntail-thorntail.jar"]
           restartPolicy: OnFailure
+  concurrencyPolicy: Replace
 
