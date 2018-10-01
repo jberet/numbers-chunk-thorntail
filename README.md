@@ -53,6 +53,10 @@ Thorntail runtime and all dependencies:
 As you can see from the above logs, the application is run with a simple `java -jar` command,
 which bootstraps Thorntail runtime, deploys our batch application, and starts the batch job execution.
 
+Alternatively, the batch application can be run with the following mvn command:
+
+    mvn thorntail:run
+
 Apart from this automatically started initial batch job execution, you can perform various batch processing operations
 with RESTful API calls, thanks to jberet-rest included in this application.  For instance,
 
@@ -393,3 +397,5 @@ co-existing and draining system resources.
 [OpenShift Developer Guide on Cronjob](https://docs.openshift.com/online/dev_guide/cron_jobs.html)
 
 [JBERET-450](https://issues.jboss.org/browse/JBERET-450) Launch and schedule batch job executions on OpenShift Thorntail runtime with Kubernetes jobs api
+
+[Thorntail Project Site](http://wildfly-swarm.io/)
